@@ -37,7 +37,7 @@ git clone gitaddr   //从git 地址上抓取代码到本地；
 ## 提交和修改
 
 ```
-git add filename/dirname   //将文件修改、新文件提交到工作区
+git add filename/dirname   //将文件修改、新文件提交到缓冲区
 ```
 
 ```
@@ -66,16 +66,24 @@ git reset --hard 248cba8e77231601d1189e3576dc096c8986ae51
 ```
 
 ```
-git commit -m 'first commiit'     //提交更新，并注释信息“first commit”
+git commit -m 'first commiit'     //提交更新到本地仓库，并注释信息“first commit”
 ```
 
 ```
-git push -u origin master     //将本地项目更新到github项目上去
+git commit -am "cjfojwq" //如果没有文件修改，直接git commit 会出错；所以加上 -a;
+```
+
+```
+git push -u origin master     //将本地仓库的更新提交到远端仓库上
 ```
 
 ```
 git reset --soft HEAD^1  //Unix 取消 commit，commit 之前add 文件等动作不会被取消；
 git reset --soft HEAD~1  //windows的bash
+```
+
+```
+git pull // == git fetch + git merge
 ```
 
 
