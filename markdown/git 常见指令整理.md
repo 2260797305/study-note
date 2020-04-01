@@ -78,7 +78,7 @@ git push -u origin master     //将本地仓库的更新提交到远端仓库上
 ```
 
 ```
-git reset --soft HEAD^1  //Unix 取消 commit，commit 之前add 文件等动作不会被取消；
+git reset --soft HEAD^1  //取消本地仓库的提交，但是缓冲区和工作修改的内容不会有影响； HEAD^1 指上一次的修改；
 git reset --soft HEAD~1  //windows的bash
 ```
 
@@ -87,15 +87,9 @@ git pull // == git fetch + git merge
 ```
 
 ```
-git stash  //将工作区和缓冲区的修改暂存到缓存区，并将工作区和缓冲区覆盖为本地服务器的代码；
-```
+git checkout a.c //从缓冲区或者版本库中获取；先缓存区，如果没有就从本地库中；即，如果本地修改已经add 到缓冲区中了，使用该指令是无法恢复到 本地版本库中的；
+git checkout HEAD  a.c //强制从本地版本库中恢复a.c；如果 a.c 有提交到缓冲区，那么缓冲区的该记录会被清除掉；
 
-```
-git stash save // 同git stash
-```
-
-```
-git stash pop //将暂存的code 回复到工作区；会自动merge；
 ```
 
 
@@ -120,6 +114,12 @@ git diff --name-only <commit-1> <commit-2> //获取两次提交修改的文件�
 
 ```
 git diff commit_id1  commit_id2 //对比两次修改的差异，包括具体内容
+```
+
+```
+git diff	            工作区 vs 暂存区
+git diff head	        工作区 vs 版本库
+git diff –cached        暂存区 vs 版本库
 ```
 
 ```
@@ -200,6 +200,40 @@ git tag -d v0.1.2  //本地删除tag v0.1.2
 git push origin :refs/tags/<tagName> //删除服务器上的tag，测试未成功；
 ```
 
+## git stash
+
+```
+git stash  //将工作区和缓冲区的修改暂存到缓存区，并将工作区和缓冲区覆盖为本地服务器的代码；
+```
+
+```
+git stash save // 同git stash
+```
+
+```
+git stash pop //回复最近的一次 stash将暂存的code 回复到工作区；会自动merge；同时将 stash 的记录删除；
+```
+
+```
+git stash list //查看当前stash 保存情况；
+```
+
+```
+git stash apply //与 git stash pop 类似，但是不会将 stash 记录删除；
+```
+
+```
+git stash apply stash@{0} //恢复指定的stash 存储的记录；不会删除记录；
+```
+
+```
+git stash drop //删除指定的记录；
+```
+
+```
+git stash clear //清空stash 中的所有内容；
+```
+
 
 
 ## 分支管理
@@ -214,6 +248,14 @@ git branch -r //查看所有的远程分支；
 
 ```
 git branch -a //查看所有的本地远程分支；
+```
+
+```
+git checkout 分支名字 //切换分支；当前的分支的工作区和缓冲区如果有修改，会带到新的分支去；
+```
+
+```
+git switch 分支名字 //同git checkout 分支名字
 ```
 
 
